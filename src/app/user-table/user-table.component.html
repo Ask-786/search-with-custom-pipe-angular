@@ -1,0 +1,48 @@
+<div class="h-screen w-screen flex justify-center items-center">
+    <table class="table-auto bg-slate-100 rounded">
+        <tr class="h-10 w-32">
+            <th>Name</th>
+            <th>Company Name</th>
+            <th>Designation</th>
+        </tr>
+        <tr class="h-10 w-32">
+            <td>
+                <div><input type="text" placeholder="Search" [(ngModel)]="name"
+                        class="focus:outline-0  text-black rounded-md">
+                </div>
+            </td>
+            <td>
+                <div><input type="text" placeholder="Search" [(ngModel)]="company"
+                        class="focus:outline-0 bg-slate-400 rounded-md"></div>
+            </td>
+            <td>
+                <div><input type="text" placeholder="Search" [(ngModel)]="designation"
+                        class="focus:outline-0 bg-slate-400 rounded-md"></div>
+            </td>
+        </tr>
+        <tr *ngFor="let user of (userData | async) | search:['name',name]| search :['company' ,company] |
+            search:['designation',designation]"
+            [ngClass]="{'bg-green-100' : user.company.designation === 'angular Developer'}">
+            <td>
+                <div class=" flex-row">
+                    <p class="">
+                        {{user.name}}
+                    </p>
+                    <p class="text-xs">
+                        {{user.email}}
+                    </p>
+                </div>
+            </td>
+            <td>
+                <p>
+                    {{user.company.name}}
+                </p>
+            </td>
+            <td>
+                <p>
+                    {{user.company.designation}}
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
