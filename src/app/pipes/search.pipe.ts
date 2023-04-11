@@ -7,22 +7,23 @@ import { UserModelInterface } from '../models/user.model';
 export class SearchPipe implements PipeTransform {
   transform(
     userData: UserModelInterface[] | null,
-    query: [string, string]
+    field: string,
+    query: string
   ): UserModelInterface[] {
-    const regEx = new RegExp(query[1], 'i');
+    const regEx = new RegExp(query, 'i');
     if (userData) {
-      if (query[1] === '') {
+      if (query === '') {
         return userData;
-      } else if (query[0] === 'name') {
+      } else if (field === 'name') {
         return userData.filter(
           (data: UserModelInterface) =>
             data.name.match(regEx) || data.email.match(regEx)
         );
-      } else if (query[0] === 'company') {
+      } else if (field === 'company') {
         return userData.filter((data: UserModelInterface) =>
           data.company.name.match(regEx)
         );
-      } else {
+      } else if (field === 'designation') {
         return userData.filter((data: UserModelInterface) =>
           data.company.designation.match(regEx)
         );
